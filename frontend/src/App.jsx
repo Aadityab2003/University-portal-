@@ -1,16 +1,23 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState, useEffect } from "react";
+import Loader from "./components/SyncLoader";
+import MainPage from "./pages/MainPage";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <>
-      <h1>hi</h1>
+      {loading ? <Loader loading={loading} /> : <MainPage />}
     </>
-  )
+  );
 }
 
-export default App
+export default App;
